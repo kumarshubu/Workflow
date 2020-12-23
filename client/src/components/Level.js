@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Level({ data, submit,level }) {
+function Level({ data, setData,submit,level }) {
   const classes = useStyles();
 
   const [elsaIngram, setElsaIngram] = useState(false);
@@ -41,30 +41,29 @@ function Level({ data, submit,level }) {
   const [levelData, setLevelData] = useState("");
   const [select,setSelect] = useState("");
 
+  useEffect(()=>{
+    let x= levelData;
+  },[])
   useEffect(() => {
-    console.log(data, levelData);
-    // if (data) {
-    //   setData([...data, levelData]);
-    // } else 
-    if(levelData!="") 
-    {
-        let x = levelData;
-        x.unshift({level:level,type:select,approval:[{elsaIngram:""},{paulMarsh:""},{dJoshi:""},{nickHolden:""},{john:""}]})
-        data[level]= x;
-        }
-  }, [submit]);
+    if(levelData=="")
+    return;
+    console.log(levelData);
 
-  // useEffect(() => {
-  //   // console.log(levelData);
-  //   // if(data.has(level))
-  //   // {
-  //   //     data.delete(level);
-  //   //     let x = levelData;
-  //   //     x.unshift({level:level,type:select})
-  //   //     data[level]= x;
-        
-  //   // }
-  // }, [levelData]);
+        let x = levelData;
+        let newData = [["elsaIngram","-"],["paulMarsh","-"],["dJoshi","-"],["nickHolden","-"],["john","-"]]
+        let y = new Map(newData);
+
+        if(levelData.length<2)
+        x.unshift({level:level,type:select,approval:newData})
+
+        let p = data;
+        if(p.has(level))
+        p.delete(level)
+
+        p[level]= x;
+
+        setData(p);
+      }, [levelData]);
 
   const handleElsa = (e) => {
     let name = e.target.name;

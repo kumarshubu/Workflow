@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Axios from "axios";
+import WorkflowModal from "./WorkflowModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,37 +47,7 @@ function Admin() {
         >
           {data.map((res) => {
             return (
-              <Paper className={classes.cards} elevation={3}>
-				  <div style={{ display: "flex", justifyContent: "center" }}>
-				  <div className={classes.centerAll}>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <div
-                      style={{
-                        textTransform: "uppercase",
-                        fontSize: "25px",
-                        fontWeight: "800",
-                        color: "#5568ca",
-                      }}
-                    >
-                      {res.data[0].vendor}
-                    </div>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <div
-                      style={{
-                        textTransform: "uppercase",
-                        fontSize: "18px",
-                        fontWeight: "500",
-                        color: "red",
-                      }}
-                    >
-                      {res.data[0].result}
-                    </div>
-                  </div>
-                </div>
-					  
-				  </div>
-              </Paper>
+              <WorkflowModal data={res.data[0]}/>
             );
           })}
         </div>

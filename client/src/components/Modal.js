@@ -32,8 +32,7 @@ export default function TransitionsModal() {
   const [levelCount, setLevelCount] = useState([1]);
   const [vendor,setVendor] = useState("");
   const [send,setSend] = useState(false);
-
-  let data = new Map();
+  const [data,setData] = useState(new Map());
 
   const handleOpen = () => {
     setOpen(true);
@@ -47,7 +46,7 @@ export default function TransitionsModal() {
   useEffect(() => {
     if (data)
     {
-      //console.log(data)
+      console.log(data)
 
     }
   }, [data]);
@@ -60,8 +59,8 @@ export default function TransitionsModal() {
     }
     data["vendor"]=vendor;
     data["result"]="active";
-
   },[vendor,data])
+  console.log(data)
 
   useEffect(()=>{
     if(submit)
@@ -69,13 +68,14 @@ export default function TransitionsModal() {
       Axios.post("/createWorkflow",{data})
       .then(res=>{
         console.log(res)
-        window.location.href="/"
+        // window.location.href="/"
       })
       .catch(err=>console.log(err))
 
       setSubmit(false);
     }
   },[submit])
+  
   return (
     <div>
       <Button
@@ -110,7 +110,7 @@ export default function TransitionsModal() {
               </div>
             </div>
             {levelCount.map((res,i)=>{
-              return (<Level data={data} submit={submit} level={i+1} />)
+              return (<Level data={data} setData={setData} submit={submit} level={i+1} />)
             })}
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
